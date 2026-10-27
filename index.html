@@ -126,7 +126,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Sobre mí */
 .sobre .dentro { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 72px); align-items: start; }
-.foto { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 200px 200px 22px 22px; background: var(--lavanda) var(--terrazo); border: 1px solid var(--lavanda-2); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.foto { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 200px 200px 22px 22px; background: var(--lavanda) var(--terrazo); border: 1px solid var(--lavanda-2); display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sobre .foto { padding: 0; }
 .foto svg { width: 46%; height: auto; }
 .pieza .foto svg { width: 42%; }
 .historia { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
@@ -282,7 +284,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
   <section class="franja niebla sobre" id="sobre-mi">
     <div class="dentro">
-      <div class="foto"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#cofre"></use></svg></div>
+      <div class="foto"><img src="img/stefani.jpg" alt="Stefani en su taller, desmoldando un jarrón de jesmonite" width="900" height="1125" loading="lazy"></div>
       <div class="historia">
         <p class="etiqueta">Sobre mí</p>
         <h2>Hola, soy Stefani</h2>
