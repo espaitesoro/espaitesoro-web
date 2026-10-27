@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Espai Tesoro</title>
+<meta name="description" content="Talleres creativos de jesmonite, velas y más en Terrassa y el Vallès. Unas horas para desconectar y crear algo bonito con tus manos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Layout: una sola página que se lee como una tarde de taller; bandas lino y lavanda alternas, terrazo suave como textura de marca */
+:root {
+  --lino: #F9F6F2;
+  --niebla: #F7F5FB;
+  --lavanda: #EEEAF5;
+  --lavanda-2: #E4DEEF;
+  --topo: #CBC2BA;
+  --ciruela: #5A4E63;
+  --ciruela-suave: #6E6377;
+  --ciruela-hondo: #3F3348;
+  --blanco: #FFFFFF;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ancho: 1080px;
+  --terrazo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg%3E%3Ccircle cx='18' cy='22' r='1.6' fill='%23D8CFE4'/%3E%3Ccircle cx='62' cy='12' r='1.1' fill='%23FFFFFF'/%3E%3Ccircle cx='118' cy='30' r='1.5' fill='%23CBC2BA' fill-opacity='.55'/%3E%3Ccircle cx='146' cy='74' r='1.1' fill='%23D8CFE4'/%3E%3Ccircle cx='40' cy='80' r='1.3' fill='%23FFFFFF'/%3E%3Ccircle cx='92' cy='96' r='1.7' fill='%23CBC2BA' fill-opacity='.45'/%3E%3Ccircle cx='14' cy='132' r='1.2' fill='%23CBC2BA' fill-opacity='.5'/%3E%3Ccircle cx='70' cy='146' r='1' fill='%23D8CFE4'/%3E%3Ccircle cx='128' cy='138' r='1.3' fill='%23FFFFFF'/%3E%3C/g%3E%3C/svg%3E");
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--lino);
+  color: var(--ciruela);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.65;
+}
+img { max-width: 100%; }
+a { color: var(--ciruela); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--ciruela); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; margin: 0; text-wrap: balance; color: var(--ciruela-hondo); }
+h1 { font-size: clamp(2.6rem, 6.5vw, 4.4rem); }
+h2 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); }
+h3 { font-size: 1.75rem; }
+p { margin: 0; }
+em { font-family: var(--serif); font-style: italic; font-size: 1.08em; }
+
+.franja { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: clamp(56px, 9vw, 104px); }
+.franja.lavanda { background: var(--lavanda) var(--terrazo); }
+.franja.niebla { background: var(--niebla); }
+.dentro { max-width: var(--ancho); margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.cabecera { display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+.etiqueta { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ciruela-suave); }
+.entradilla { font-size: 1.1rem; color: var(--ciruela-suave); max-width: 60ch; }
+
+/* Botones */
+.boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 0 26px; border-radius: 999px; font-family: var(--sans); font-size: 1rem; font-weight: 400; letter-spacing: 0.02em; text-decoration: none; border: 1.5px solid var(--ciruela); transition: background .2s, color .2s; }
+.boton.lleno { background: var(--ciruela); color: var(--lino); }
+.boton.lleno:hover { background: var(--ciruela-hondo); border-color: var(--ciruela-hondo); }
+.boton.linea { background: transparent; color: var(--ciruela); }
+.boton.linea:hover { background: var(--ciruela); color: var(--lino); }
+.botones { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Menú */
+.menu { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(249, 246, 242, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--lavanda-2); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--lino); }
+.menu .dentro { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serif); font-size: 1.5rem; color: var(--ciruela-hondo); }
+.marca svg { flex-shrink: 0; }
+.enlaces { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+.enlaces a { text-decoration: none; padding-block: 8px; }
+.enlaces a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.menu .boton { min-height: 42px; padding: 0 18px; font-size: 0.92rem; }
+@media (max-width: 820px) { .enlaces { display: none; } }
+
+/* Portada */
+.portada .dentro { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: clamp(32px, 6vw, 72px); }
+.portada-texto { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.portada-texto .entradilla { font-size: 1.15rem; }
+.sello { position: relative; width: min(100%, 420px); aspect-ratio: 1; max-width: 100%; justify-self: center; border-radius: 50%; background: var(--lavanda) var(--terrazo); background-size: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; box-shadow: 0 0 0 14px var(--niebla), 0 0 0 15px var(--lavanda-2); }
+.sello span { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3rem); line-height: 1; color: var(--ciruela-hondo); }
+.datos-portada { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 0.95rem; color: var(--ciruela-suave); }
+.datos-portada span { display: inline-flex; align-items: center; gap: 8px; }
+.datos-portada span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--topo); }
+@media (max-width: 760px) {
+  .portada .dentro { grid-template-columns: 1fr; }
+  .sello { width: min(78%, 320px); order: -1; }
+}
+
+/* Talleres */
+.talleres { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+.taller { background: var(--blanco); border: 1px solid var(--lavanda-2); border-radius: 22px; padding: clamp(24px, 4vw, 36px); display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.taller.principal { grid-row: span 2; }
+.taller.suave { background: var(--niebla); }
+.estado { align-self: flex-start; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: var(--lavanda); color: var(--ciruela); }
+.ficha { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; margin: 0; padding: 18px 0; border-block: 1px solid var(--lavanda); }
+.ficha div { display: flex; flex-direction: column; gap: 2px; }
+.ficha dt { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ciruela-suave); }
+.ficha dd { margin: 0; font-family: var(--serif); font-size: 1.45rem; color: var(--ciruela-hondo); }
+.precio { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.precio strong { font-family: var(--serif); font-weight: 500; font-size: 2.6rem; line-height: 1; color: var(--ciruela-hondo); }
+.precio small { font-size: 0.92rem; color: var(--ciruela-suave); }
+.nota { font-size: 0.9rem; color: var(--ciruela-suave); }
+@media (max-width: 760px) { .talleres { grid-template-columns: 1fr; } .taller.principal { grid-row: auto; } }
+
+/* Cómo es la tarde */
+.recorrido { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.recorrido li { display: flex; flex-direction: column; gap: 10px; padding: 0 18px 0 0; position: relative; min-width: 0; }
+.recorrido .minuto { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--ciruela-suave); }
+.recorrido .punto { width: 100%; height: 14px; display: flex; align-items: center; }
+.recorrido .punto::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--ciruela); flex-shrink: 0; box-shadow: 0 0 0 5px var(--lavanda); }
+.recorrido .punto::after { content: ""; flex: 1; height: 1px; background: var(--topo); margin-left: 6px; }
+.recorrido li:last-child .punto::after { display: none; }
+.recorrido h3 { font-size: 1.35rem; }
+.recorrido p { font-size: 0.95rem; color: var(--ciruela-suave); }
+@media (max-width: 860px) {
+  .recorrido { grid-template-columns: 1fr; gap: 22px; }
+  .recorrido li { display: grid; grid-template-columns: 90px 1fr; column-gap: 16px; padding: 0; }
+  .recorrido .punto { display: none; }
+  .recorrido .minuto { grid-row: span 2; }
+}
+
+/* Sobre mí */
+.sobre .dentro { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 6vw, 72px); align-items: start; }
+.foto { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 200px 200px 22px 22px; background: var(--lavanda) var(--terrazo); border: 1px solid var(--lavanda-2); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.foto svg { width: 46%; height: auto; }
+.pieza .foto svg { width: 42%; }
+.historia { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.historia p { max-width: 62ch; }
+.historia .firma { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--ciruela-hondo); }
+@media (max-width: 760px) { .sobre .dentro { grid-template-columns: 1fr; } .foto { max-width: 340px; } }
+
+/* Piezas */
+.piezas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.pieza { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.pieza .foto { aspect-ratio: 1; border-radius: 18px; background-color: var(--niebla); }
+.pieza-fila { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.pieza h3 { font-size: 1.45rem; }
+.pieza .valor { font-size: 0.9rem; color: var(--ciruela-suave); white-space: nowrap; }
+@media (max-width: 760px) { .piezas { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .piezas { grid-template-columns: 1fr; } }
+
+/* Opiniones */
+.opiniones-vacio { background: var(--blanco); border: 1px dashed var(--topo); border-radius: 22px; padding: clamp(28px, 5vw, 48px); display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.opiniones-vacio p { max-width: 50ch; color: var(--ciruela-suave); }
+.opiniones-vacio .cita { font-family: var(--serif); font-style: italic; font-size: 1.9rem; line-height: 1.2; color: var(--ciruela-hondo); }
+
+/* Preguntas */
+.preguntas { display: flex; flex-direction: column; border-top: 1px solid var(--lavanda-2); }
+.preguntas details { border-bottom: 1px solid var(--lavanda-2); }
+.preguntas summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 18px; font-family: var(--serif); font-size: 1.4rem; color: var(--ciruela-hondo); min-height: 44px; }
+.preguntas summary::-webkit-details-marker { display: none; }
+.preguntas summary::after { content: "+"; font-family: var(--sans); font-weight: 300; font-size: 1.6rem; line-height: 1; transition: transform .2s; }
+.preguntas details[open] summary::after { transform: rotate(45deg); }
+.preguntas details p { padding-bottom: 20px; max-width: 64ch; color: var(--ciruela-suave); }
+
+/* Contacto */
+.contacto .dentro { align-items: center; text-align: center; }
+.contacto .cabecera { align-items: center; }
+.vias { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.pie { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px; background: var(--ciruela); color: var(--lavanda); font-size: 0.88rem; }
+.pie .dentro { flex-direction: row; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+.pie a { color: var(--lavanda); }
+.pie ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0; padding: 0; }
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cofre" viewBox="0 0 100 100">
+      <path d="M50 4 C51 12 54 15 62 16 C54 17 51 20 50 28 C49 20 46 17 38 16 C46 15 49 12 50 4 Z" fill="#CBC2BA"></path>
+      <g fill="none" stroke="#5A4E63" stroke-width="2.6" stroke-linejoin="round">
+        <path d="M16 52 C16 34 84 34 84 52 Z" fill="#F7F5FB"></path>
+        <rect x="16" y="52" width="68" height="38" rx="4"></rect>
+        <rect x="44" y="47" width="12" height="14" rx="2" fill="#EEEAF5"></rect>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="menu">
+  <div class="dentro">
+    <a class="marca" href="#inicio">
+      <svg width="34" height="34" aria-hidden="true"><use href="#cofre"></use></svg>
+      Espai Tesoro
+    </a>
+    <nav aria-label="Secciones">
+      <ul class="enlaces">
+        <li><a href="#talleres">Talleres</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#piezas">Piezas</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+      </ul>
+    </nav>
+    <a class="boton lleno" href="#talleres">Reservar</a>
+  </div>
+</header>
+
+<main>
+  <section class="franja portada" id="inicio">
+    <div class="dentro">
+      <div class="portada-texto">
+        <p class="etiqueta">Talleres creativos · Terrassa y el Vallès</p>
+        <h1>Unas horas de calma, creando algo bonito <em>con tus manos</em></h1>
+        <p class="entradilla">Talleres de jesmonite, velas y más para venir sola, con tus amigas o con tus peques. Sin experiencia, sin prisas y con buen rollo. Te vas a casa con tus piezas y con la cabeza más ligera.</p>
+        <div class="botones">
+          <a class="boton lleno" href="#talleres">Ver próximos talleres</a>
+          <a class="boton linea" data-enlace="whatsapp" href="https://ig.me/m/espaitesoro" target="_blank" rel="noopener">Escríbeme</a>
+        </div>
+        <div class="datos-portada">
+          <span>Grupos de 8 a 10 personas</span>
+          <span>Todo el material incluido</span>
+          <span>Castellano y català</span>
+        </div>
+      </div>
+      <div class="sello" aria-hidden="true">
+        <span>Espai Tesoro</span>
+        <svg width="34%" viewBox="0 0 100 100" style="aspect-ratio:1"><use href="#cofre"></use></svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja lavanda" id="talleres">
+    <div class="dentro">
+      <div class="cabecera">
+        <p class="etiqueta">Talleres</p>
+        <h2>Elige tu plan</h2>
+        <p class="entradilla">Pagas tu plaza online en un minuto y te llega la confirmación al momento.</p>
+      </div>
+      <div class="talleres">
+        <article class="taller principal">
+          <span class="estado">Primera fecha muy pronto</span>
+          <h3>Jesmonite: jarrón y bandeja terrazo</h3>
+          <p>El jesmonite es un material que parece cerámica o piedra y no necesita horno. Eliges molde y colores, mezclas, viertes y desmoldas. En dos horas tienes dos piezas tuyas, listas para casa.</p>
+          <dl class="ficha">
+            <div><dt>Duración</dt><dd>2 horas</dd></div>
+            <div><dt>Grupo</dt><dd>8 a 10 plazas</dd></div>
+            <div><dt>Te llevas</dt><dd>2 piezas</dd></div>
+            <div><dt>Incluye</dt><dd>Material y bebida</dd></div>
+          </dl>
+          <div class="precio"><strong>35 €</strong><small>por persona · precio de lanzamiento</small></div>
+          <div class="botones">
+            <a class="boton lleno" data-enlace="pago-jesmonite" href="https://ig.me/m/espaitesoro" target="_blank" rel="noopener">Reservar mi plaza</a>
+          </div>
+          <p class="nota">Mientras anuncio la fecha, escríbeme y te guardo sitio en la lista de espera.</p>
+        </article>
+        <article class="taller">
+          <span class="estado">Próximamente</span>
+          <h3>Velas de soja</h3>
+          <p>Aromas, colores y recipientes a tu gusto. Ideal para regalar, o para quedártela.</p>
+        </article>
+        <article class="taller suave">
+          <span class="estado">A tu medida</span>
+          <h3>Grupos y celebraciones</h3>
+          <p>Cumpleaños, despedidas, plan con tu equipo o una tarde en familia. Me cuentas qué tenéis en mente y lo preparamos.</p>
+          <a class="boton linea" data-enlace="whatsapp" href="https://ig.me/m/espaitesoro" target="_blank" rel="noopener">Pedir información</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja" id="como-es">
+    <div class="dentro">
+      <div class="cabecera">
+        <p class="etiqueta">Cómo es un taller</p>
+        <h2>Dos horas que se pasan volando</h2>
+      </div>
+      <ol class="recorrido">
+        <li><span class="minuto">0′</span><span class="punto"></span><div><h3>Bienvenida</h3><p>Algo de beber, te enseño piezas de muestra y nos conocemos.</p></div></li>
+        <li><span class="minuto">15′</span><span class="punto"></span><div><h3>Eliges</h3><p>Molde, colores y efecto: liso, marmolado o terrazo.</p></div></li>
+        <li><span class="minuto">30′</span><span class="punto"></span><div><h3>Creas</h3><p>Mezclas y viertes tu primera pieza; mientras cura, la segunda.</p></div></li>
+        <li><span class="minuto">60′</span><span class="punto"></span><div><h3>Desmoldas</h3><p>El momento sorpresa. Lijamos, retocamos y hacemos fotos.</p></div></li>
+        <li><span class="minuto">90′</span><span class="punto"></span><div><h3>A casa</h3><p>Sellamos, embalamos y te explico cómo cuidarlas.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="franja niebla sobre" id="sobre-mi">
+    <div class="dentro">
+      <div class="foto"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#cofre"></use></svg></div>
+      <div class="historia">
+        <p class="etiqueta">Sobre mí</p>
+        <h2>Hola, soy Stefani</h2>
+        <p>Llegué a España desde Venezuela hace diez años, muy joven, con ganas de empezar de cero. Trabajé de camarera, en un call center, coordinando mantenimiento y en empresas de ascensores, hasta montar mi propia empresa de servicios.</p>
+        <p>En todo ese camino hubo algo que nunca cambió: me encanta crear con las manos. Pintar, arreglar, inventar. Es lo que me calma y me hace feliz, y es lo que quiero compartir contigo.</p>
+        <p>En casa me llamaban <em>tesoro</em>. Por eso este espacio se llama así: un rincón donde parar un rato, crear algo tuyo y llevártelo a casa.</p>
+        <p class="firma">Te espero, Stefani</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja" id="piezas">
+    <div class="dentro">
+      <div class="cabecera">
+        <p class="etiqueta">Piezas hechas a mano</p>
+        <h2>La tiendita</h2>
+        <p class="entradilla">Piezas únicas que hago en mi taller. Cada una sale distinta, como el terrazo. Muy pronto podrás comprarlas aquí.</p>
+      </div>
+      <div class="piezas">
+        <article class="pieza">
+          <div class="foto"><svg viewBox="0 0 100 100" fill="none" stroke="#5A4E63" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M40 12h20v10c12 6 18 18 18 34 0 18-12 32-28 32S22 74 22 56c0-16 6-28 18-34z" fill="#F7F5FB"></path><circle cx="40" cy="50" r="2" fill="#CBC2BA" stroke="none"></circle><circle cx="58" cy="62" r="2.6" fill="#D8CFE4" stroke="none"></circle><circle cx="46" cy="72" r="1.6" fill="#CBC2BA" stroke="none"></circle><circle cx="62" cy="44" r="1.4" fill="#D8CFE4" stroke="none"></circle></svg></div>
+          <div class="pieza-fila"><h3>Jarrón terrazo</h3><span class="valor">Próximamente</span></div>
+        </article>
+        <article class="pieza">
+          <div class="foto"><svg viewBox="0 0 100 100" fill="none" stroke="#5A4E63" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><ellipse cx="50" cy="52" rx="40" ry="18" fill="#F7F5FB"></ellipse><ellipse cx="50" cy="50" rx="32" ry="12"></ellipse><circle cx="38" cy="50" r="2" fill="#CBC2BA" stroke="none"></circle><circle cx="60" cy="47" r="2.4" fill="#D8CFE4" stroke="none"></circle><circle cx="52" cy="55" r="1.5" fill="#CBC2BA" stroke="none"></circle></svg></div>
+          <div class="pieza-fila"><h3>Bandeja</h3><span class="valor">Próximamente</span></div>
+        </article>
+        <article class="pieza">
+          <div class="foto"><svg viewBox="0 0 100 100" fill="none" stroke="#5A4E63" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M50 18c5 7 6 12 0 18-6-6-5-11 0-18z" fill="#CBC2BA" stroke="none"></path><path d="M50 36v10"></path><path d="M18 50h64c0 20-14 34-32 34S18 70 18 50z" fill="#F7F5FB"></path><path d="M24 50c0-3 52-3 52 0"></path></svg></div>
+          <div class="pieza-fila"><h3>Vela en cuenco</h3><span class="valor">Próximamente</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja lavanda" id="opiniones">
+    <div class="dentro">
+      <div class="opiniones-vacio">
+        <p class="etiqueta">Opiniones</p>
+        <p class="cita">¿Vienes al primer taller?</p>
+        <p>Aquí irán las palabras de quienes vengan a crear conmigo. Me encantaría que la primera fuera la tuya.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja" id="preguntas">
+    <div class="dentro">
+      <div class="cabecera">
+        <p class="etiqueta">Preguntas</p>
+        <h2>Lo que suele preguntarse</h2>
+      </div>
+      <div class="preguntas">
+        <details><summary>¿Necesito experiencia?</summary><p>Ninguna. Te acompaño paso a paso y el material está pensado para que salga bonito a la primera.</p></details>
+        <details><summary>¿Puedo venir con mis hijos?</summary><p>Sí, hay talleres pensados para venir en familia. Escríbeme con sus edades y te digo cuál encaja mejor.</p></details>
+        <details><summary>¿Cómo se paga la plaza?</summary><p>Online con tarjeta, Apple Pay o Google Pay al reservar. La plaza se confirma con el pago completo.</p></details>
+        <details><summary>¿Y si al final no puedo ir?</summary><p>Avísame y te cambio a otra fecha. El importe no se devuelve, pero tu plaza no se pierde.</p></details>
+        <details><summary>¿Dónde son los talleres?</summary><p>En Terrassa. La dirección exacta va en cada fecha y te la mando al confirmar la reserva.</p></details>
+        <details><summary>¿Hacéis talleres privados?</summary><p>Sí: cumpleaños, despedidas, empresas o grupos de amigas. Cuéntame el plan y lo preparamos.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja niebla contacto" id="contacto">
+    <div class="dentro">
+      <div class="cabecera">
+        <p class="etiqueta">Contacto</p>
+        <h2>¿Hablamos?</h2>
+        <p class="entradilla">Escríbeme por donde te vaya mejor y te respondo enseguida.</p>
+      </div>
+      <div class="vias">
+        <a class="boton lleno" data-enlace="whatsapp" href="https://ig.me/m/espaitesoro" target="_blank" rel="noopener">Escríbeme</a>
+        <a class="boton linea" href="https://www.instagram.com/espaitesoro/" target="_blank" rel="noopener">Instagram</a>
+        <a class="boton linea" href="https://www.tiktok.com/@espaitesoro" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <p class="nota">espaitesoro@gmail.com · Terrassa, Vallès Occidental</p>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="dentro">
+    <p>© 2026 Espai Tesoro · Stefani, Terrassa</p>
+    <ul>
+      <li><a href="#inicio">Aviso legal</a></li>
+      <li><a href="#inicio">Privacidad</a></li>
+      <li><a href="#inicio">Condiciones de reserva</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Enlaces de la web: rellena aquí y se actualizan todos los botones.
+  // Mientras estén vacíos, los botones abren tu chat de Instagram.
+  var ENLACES = {
+    whatsapp: '',        // ej. 'https://wa.me/34600000000?text=Hola%20Espai%20Tesoro'
+    'pago-jesmonite': '' // enlace de pago de Stripe del taller de jesmonite
+  };
+  document.querySelectorAll('[data-enlace]').forEach(function (a) {
+    var url = ENLACES[a.getAttribute('data-enlace')];
+    if (url) a.href = url;
+  });
+</script>
+
+</body>
+</html>
